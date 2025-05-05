@@ -1,0 +1,41 @@
+class HTMLNode:
+    def __init__(self, tag=None, value=None, children=None, props=None):
+        self.tag = tag  # Defaults to None, raw text if None
+        self.value = value  # Defaults to None, assumed to have children if None
+        self.children = children  # Defaults to None, assumed to have a value if None
+        self.props = props  # Defaults to None, no attributes if None
+
+    def add_child(self, child):
+        if self.children is None:
+            self.children = []
+        self.children.append(child)
+
+    def to_html(self):
+        # Handle attributes
+        attrs = ''
+        if self.props:
+            attrs = ' '.join(f'{key}="{value}"' for key, value in self.props.items())
+            attrs = f' {attrs}'
+
+        # Handle children or value
+        if self.children is not None:
+            children_html = ''.join(
+                child.to_html() if isinstance(child, HTMLNode) else str(child)
+                for child in self.children
+            )
+        else:
+            children_html = self.value if self.value is not None else ''
+
+        # Render tag or raw text
+        if self.tag:
+            return f'<{self.tag}{attrs}>{children_html}</{self.tag}>'
+        else:
+            return children_html
+
+    def props_to_html(self):
+        if self.props is None:
+            return ""
+        return " ".join(f'{key}="{value}"' for key, value in self.props.items())
+
+    def __repr__(self):
+        return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props})"
