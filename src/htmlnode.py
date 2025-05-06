@@ -39,3 +39,22 @@ class HTMLNode:
 
     def __repr__(self):
         return f"HTMLNode(tag={self.tag}, value={self.value}, children={self.children}, props={self.props})"
+
+
+# LeafNode is a subclass of HTMLNode that represents a node with a tag and a value.
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value, props=None):
+        if value is None:
+            raise ValueError("LeafNode must have a value.")
+        super().__init__(tag=tag, value=value, children=None, props=props)
+
+    def to_html(self):
+        if self.value is None:
+            raise ValueError("LeafNode must have a value.")
+        if self.tag is None:
+            return self.value  # Render as raw text if no tag
+        attrs = ''
+        if self.props:
+            attrs = ' '.join(f'{key}="{value}"' for key, value in self.props.items())
+            attrs = f' {attrs}'
+        return f'<{self.tag}{attrs}>{self.value}</{self.tag}>'
