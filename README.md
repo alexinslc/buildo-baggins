@@ -13,7 +13,12 @@
 ├── public/                # Output: final HTML/CSS lives here
 │
 ├── [ Run This to Build ]
+|   ├── $ ./main.sh
 │   └── $ python3 src/main.py
+|
+├── [ Run This to Test ]
+│   ├── $ ./test.sh
+│   └── $ python3 -m unittest discover -s src
 │
 └── [ Preview Locally ]
     └── $ python3 -m http.server 8888
