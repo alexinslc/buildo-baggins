@@ -24,3 +24,12 @@
     └── $ python3 -m http.server 8888
          → View in your browser at http://localhost:8888
 ```
+
+## Buildo Baggins Features
+- **Fast**: Built with Python, optimized for speed.
+- **Easy**: Simple setup, no complex configurations.
+- **Flexible**: Customize templates and styles to fit your needs.
+- **Markdown Support**: Write content in Markdown for easy formatting.
+- **Static Assets**: Manage images, CSS, and other static files effortlessly.
+- **Local Preview**: Test your site locally before deploying.
+- **Unit Testing**: Ensure your code is robust with built-in tests.
