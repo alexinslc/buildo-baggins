@@ -32,4 +32,7 @@
 - **Markdown Support**: Write content in Markdown for easy formatting.
 - **Static Assets**: Manage images, CSS, and other static files effortlessly.
 - **Local Preview**: Test your site locally before deploying.
-- **Unit Testing**: Ensure your code is robust with built-in tests.
+- **Unit Testing**: Ensure your code is robust with built-in tests
+
+## TODO
+- Continue development to get to mvp.
