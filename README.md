@@ -36,3 +36,7 @@
 
 ## TODO
 - Continue development to get to mvp.
+- Add more features like:
+  - Support for custom themes
+  - Integration with third-party services (e.g., analytics, SEO)
+  - Deployment scripts for popular hosting platforms
