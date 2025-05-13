@@ -1,7 +1,7 @@
 import os
 import shutil
 from pathlib import Path
-from page import generate_page
+from page import generate_pages_recursive
 
 def copy_static(source_dir: str, dest_dir: str) -> None:
     """
@@ -38,8 +38,8 @@ def main():
     # Copy static files to public directory
     copy_static("static", "public")
     
-    # Generate the main page
-    generate_page("content/index.md", "template.html", "public/index.html")
+    # Generate all pages from content directory
+    generate_pages_recursive("content", "template.html", "public")
 
 if __name__ == "__main__":
     main()
