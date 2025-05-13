@@ -12,13 +12,14 @@ def extract_title(markdown: str) -> str:
             return line[2:].strip()
     raise Exception("No h1 header found in markdown")
 
-def generate_page(from_path: str, template_path: str, dest_path: str) -> None:
+def generate_page(from_path: str, template_path: str, dest_path: str, basepath: str = "/") -> None:
     """
     Generate an HTML page from markdown content using a template.
     Args:
         from_path: Path to the markdown file
         template_path: Path to the HTML template
         dest_path: Path where the generated HTML should be written
+        basepath: Base path for URLs in the generated HTML
     """
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     
@@ -41,6 +42,10 @@ def generate_page(from_path: str, template_path: str, dest_path: str) -> None:
     html = template.replace("{{ Title }}", title)
     html = html.replace("{{ Content }}", content)
     
+    # Replace absolute paths with basepath
+    html = html.replace('href="/', f'href="{basepath}')
+    html = html.replace('src="/', f'src="{basepath}')
+    
     # Create destination directory if it doesn't exist
     os.makedirs(os.path.dirname(dest_path), exist_ok=True)
     
@@ -48,13 +53,14 @@ def generate_page(from_path: str, template_path: str, dest_path: str) -> None:
     with open(dest_path, "w") as f:
         f.write(html)
 
-def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str) -> None:
+def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str, basepath: str = "/") -> None:
     """
     Recursively generate HTML pages from markdown files in a directory.
     Args:
         dir_path_content: Path to the content directory containing markdown files
         template_path: Path to the HTML template
         dest_dir_path: Path where the generated HTML files should be written
+        basepath: Base path for URLs in the generated HTML
     """
     # Create the destination directory if it doesn't exist
     os.makedirs(dest_dir_path, exist_ok=True)
@@ -80,4 +86,4 @@ def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir
                 dst_file = os.path.join(dest_dir_path, rel_path, file_name.replace(".md", ".html"))
                 
                 # Generate the HTML page
-                generate_page(src_file, template_path, dst_file) 
+                generate_page(src_file, template_path, dst_file, basepath) 

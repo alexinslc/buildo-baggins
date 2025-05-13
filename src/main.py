@@ -1,4 +1,5 @@
 import os
+import sys
 import shutil
 from pathlib import Path
 from page import generate_pages_recursive
@@ -35,11 +36,17 @@ def copy_static(source_dir: str, dest_dir: str) -> None:
             print(f"Copied file: {dst_file}")
 
 def main():
-    # Copy static files to public directory
-    copy_static("static", "public")
+    # Get basepath from command line argument or default to "/"
+    basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
+    
+    # Use docs directory for GitHub Pages
+    dest_dir = "docs"
+    
+    # Copy static files to docs directory
+    copy_static("static", dest_dir)
     
     # Generate all pages from content directory
-    generate_pages_recursive("content", "template.html", "public")
+    generate_pages_recursive("content", "template.html", dest_dir, basepath)
 
 if __name__ == "__main__":
     main()
