@@ -1,7 +1,7 @@
 import os
 import shutil
 from pathlib import Path
-from textnode import TextNode, TextType
+from page import generate_page
 
 def copy_static(source_dir: str, dest_dir: str) -> None:
     """
@@ -35,12 +35,11 @@ def copy_static(source_dir: str, dest_dir: str) -> None:
             print(f"Copied file: {dst_file}")
 
 def main():
-    # Create a LINK TextNode
-    text_node1 = TextNode("This is some anchor text", TextType.LINK, "https://example.com")
-    print(text_node1)
-
     # Copy static files to public directory
     copy_static("static", "public")
+    
+    # Generate the main page
+    generate_page("content/index.md", "template.html", "public/index.html")
 
 if __name__ == "__main__":
     main()
