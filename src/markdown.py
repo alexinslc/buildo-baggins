@@ -3,6 +3,7 @@ from blocktype import BlockType
 from textnode import TextNode, TextType, text_node_to_html_node
 from htmlnode import HTMLNode, LeafNode, ParentNode
 from splitnodes import split_nodes_delimiter
+from splitnodesimageslinks import split_nodes_image, split_nodes_link
 
 def split_markdown_into_blocks(markdown: str) -> list[str]:
     """Split markdown into blocks, removing empty blocks and stripping whitespace."""
@@ -13,6 +14,12 @@ def text_to_children(text: str) -> list[HTMLNode]:
     """Convert text with inline markdown to a list of HTMLNodes."""
     # Start with a single text node
     nodes = [TextNode(text, TextType.TEXT)]
+    
+    # Split by images first
+    nodes = split_nodes_image(nodes)
+    
+    # Split by links
+    nodes = split_nodes_link(nodes)
     
     # Split by bold
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
